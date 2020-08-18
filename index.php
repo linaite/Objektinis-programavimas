@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+​
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php print 'Aš,' . date('l') . 'ir PHP'; ?></title>
+    <title>Aš valdau HTML <?php print 'ir PHP'; ?></title>
 </head>
+​
 <body>
-<h1>
-    Arnoldas - HTML <?php print 'ir PHP'; ?> asas
-    jau nuo <?php print date('Y'); ?> metų!
-</h1>
+<h1>Agnietė - HTML <?php print 'ir PHP'; ?> asė!</h1>
 <p>
-    Viskas prasidėjo: <?php print date('m') . 'mėnesio' . date('d') . 'dieną'; ?>
+    Moku kurti turinį.<br>
+    Atidaryta: <?php print date('Y-m-d h:i:sa'); ?>
 </p>
 </body>
-</html>
 ​
+
