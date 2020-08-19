@@ -13,20 +13,9 @@ $span = "$money eurai " . floor($bokals) . ' bokalai';
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
-<style>
-    .main {
-        display: flex;
-    }
-
-    .bokal {
-        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTEdd932N2jqR--HHB6tOli42z2AtZQTYTzGg&usqp=CAU");
-        background-position: center;
-        width: 200px;
-        height: 200px;
-    }
-</style>
 <body>
 <span><?php print $span; ?></span>
 <div class="main">
