@@ -1,7 +1,6 @@
 <?php
 $money = rand(0, 15);
 $bokal_cost = 3;
-$img_src = '';
 
 $bokals = $money / $bokal_cost;
 $span = "$money eurai " . floor($bokals) . ' bokalai';
@@ -37,7 +36,3 @@ $span = "$money eurai " . floor($bokals) . ' bokalai';
 </div>
 </body
 </html>
-
-
-
-
