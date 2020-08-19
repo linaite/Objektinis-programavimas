@@ -1,10 +1,10 @@
 <?php
-$distance = rand(1000, 2000);
-$consumption = 7.5;
-$price_1 = 1.3;
+$money = rand(0, 15);
+$bokal_cost = 3;
+$img_src = '';
 
-$fuel_total = $distance * $consumption/ 100;
-$price_trip = $fuel_total * $price_1;
+$bokals = $money / $bokal_cost;
+$span = "$money eurai " . floor($bokals) . ' bokalai';
 ?>
 
 <!doctype html>
@@ -16,12 +16,28 @@ $price_trip = $fuel_total * $price_1;
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+<style>
+    .main {
+        display: flex;
+    }
+
+    .bokal {
+        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTEdd932N2jqR--HHB6tOli42z2AtZQTYTzGg&usqp=CAU");
+        background-position: center;
+        width: 200px;
+        height: 200px;
+    }
+</style>
 <body>
-<h1>Kelionės skaičiuoklė</h1>
-<ul>
-    <li><?php print "$distance km."; ?></li>
-    <li><?php print round($fuel_total) . ' l/100 km.'; ?></li>
-    <li><?php print round($price_trip) . ' Eur/l'; ?></li>
-</ul>
-</body>
+<span><?php print $span; ?></span>
+<div class="main">
+    <?php for ($i = 1; $i <= $bokals; $i++): ?>
+        <div class="bokal"></div>
+    <?php endfor; ?>
+</div>
+</body
 </html>
+
+
+
+
