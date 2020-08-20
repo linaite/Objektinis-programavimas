@@ -1,22 +1,43 @@
 <?php
-$produktai = [
+define('ITEM_LOST', 0);
+define('ITEM_IN_USE', 1);
+define('ITEM_EMPTY', 2);
+$players = [
     [
-        'pavadinimas' => 'Grietinė',
-        'dydis' => 'big',
-        'kiekis' => 1
+        'name' => [
+            'Petras',
+            'Pizdys'
+        ],
+        'items' => [
+            [
+                'name' => 'Telefonas',
+                'status' => ITEM_LOST
+            ]
+        ]
     ],
     [
-        'pavadinimas' => 'Baklažanas',
-        'dydis' => 'small',
-        'kiekis' => 1
+        'name' => [
+            'Tomas',
+            'Ablomas'
+        ],
+        'items' => [
+            [
+                'name' => 'Buljonas',
+                'status' => ITEM_IN_USE
+            ]
+        ]
     ],
     [
-        'pavadinimas' => 'Kiaušinis',
-        'dydis' => 'big',
-        'kiekis' => 2
-    ],
+        'name' => [
+            'Ana',
+            'Shitkova'
+        ],
+        'items' => [
+            [
+                'name' => 'Rulonas',
+                'status' => ITEM_EMPTY
+            ]
+        ]
+    ]
 ];
-var_dump($produktai);
-
-
-?>
+var_dump($players);
