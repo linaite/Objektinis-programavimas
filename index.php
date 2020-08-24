@@ -1,100 +1,51 @@
-<!------------------------Asociatyvūs masyvai----------------- -->
-<!--1. Sukurti masyvą, kuris aprašytų knygos duomenis: title, author, year, genre -->
 <?php
-$book1 = [
-    'title' => 'Alisa stebuklų šalyje',
-    'author' => 'Lewis Carroll',
-    'year' => 1865,
-    'genre' => ['Adventure', 'Drama', 'Fantasy']
-];
-// print $book1['year']; // 1865
-// print $book1['genre'][1]; // Drama
 
-?>
-<!--2. Sukurti masyvą, kurio elementai būtų masyvai aprašantys knygas -->
-<?php
-$books = [
-    [
-        'title' => 'Alice in wonderland',
-        'author' => 'Lewis Carroll',
-        'year' => 1865,
-        'genres' => ['Adventure', 'Drama', 'Fantasy']
-    ],
-    [
-        'title' => 'The Decameron',
-        'author' => 'Giovanni Boccaccio',
-        'year' => 1353,
-        'genres' => ['Story collection']
-    ],
-    [
-        'title' => 'The 120 Days of Sodom',
-        'author' => 'Marquis de Sade',
-        'year' => 1789,
-        'genres' => ['Novel']
-    ],
-    [
-        'title' => 'Droll Stories',
-        'author' => 'Honoré de Balzac',
-        'year' => 1837,
-        'genres' => ['Short stories']
-    ]
-]
-?>
-<!--3. Išvesti visus knygų masyvo elementus su var_dump; -->
-<?php
-foreach ($books as $book) {
-    // var_dump($book);
-}
-?>
-<!--4. Išvesti visų knygų pavadinimus, atskirtu kableliu ir tarpu -->
-<?php
-// 4.1 - Naudojant ternary operatorių
-// foreach ($books as $index => $book) {
-//   print $book['title'] . ($index === count($books) - 1 ? null : ', ');
-// }
-// echo '<hr/>';
-// // 4.2 - Naudojant substr funkciją
-// $bookListView = '';
-// $separator = ', ';
-// foreach ($books as $book) {
-//   $bookListView .= $book['title'] . $separator;
-// }
-// print substr($bookListView, 0, -1 *(strlen($separator)));
-// echo '<hr/>';
+    $game = [
+        'objects' => [
+            [
+                'x' => 50,
+                'y' => 2,
+                'class' => 'car',
+            ],
+            [
+                'x' => 22,
+                'y' => 4,
+                'class' => 'ballas',
+            ],
+            [
+                'x' => 6,
+                'y' => 0,
+                'class' => 'motorcycle',
+            ],
+            [
+                'x' => 80,
+                'y' => 0,
+                'class' => 'girl',
+            ],
+        ],
+    ];
 
-// // 4.3 - Naudojant (array) join metodą - Geriausias dėl "single responsibility" design principo
-// $bookTitles = [];
-// foreach ($books as $book) {
-//   $bookTitles[] = $book['title'];
-// }
-// print join(', ', $bookTitles);
-// echo '<hr/>';
-?>
-<!--5. Išvesti visus knygų masyvo elementus lentele; -->
-<?php
-$gridRowsView = '';
-// 5.1 - Formuojant kaip stringus
-foreach ($books as $book) {
-    $gridRowView = '<div class="grid-books__row">';
-    $gridRowView .= '<div class="grid-books__col">' . $book['title'] . '</div>';
-    $gridRowView .= '<div class="grid-books__col">' . $book['author'] . '</div>';
-    $gridRowView .= '<div class="grid-books__col">' . $book['year'] . '</div>';
-    $gridRowView .= '<div class="grid-books__col">' . join(', ', $book['genres']) . '</div>';
-    $gridRowView .= '</div>';
-    $gridRowsView .= $gridRowView;
-}
-?>
-<!-- <div class="grid-books">
-  <div class="grid-books__row grid-books__row--header">
-    <div class="grid-books__col">Pavadinimas</div>
-    <div class="grid-books__col">Autorius</div>
-    <div class="grid-books__col">Metai</div>
-    <div class="grid-books__col">Žanrai</div>
-  </div>
-  <?php print $gridRowsView ?>
-</div> -->
+    foreach ($game['objects'] as $key => $object) {
+//      $x = true;
+//      $y = !$x;
 
-<!-- 5.2 Formuojant tiesiai į HTML - Šiuo atveju geresnis variantas-->
+        $object['on_fire'] = rand(true, false);
+        $object['is_target'] = !$object['on_fire'];
+//      if ($object['on_fire']) {
+//          $object['class'] .= ' fire';
+//      }
+//
+//      if ($object['is_target']) {
+//          $object['class'] .= ' target';
+//      }
+
+        $object['class'] .= ' ' . ($object['on_fire'] ? 'fire' : 'target');
+
+        $game['objects'][$key] = $object;
+    }
+
+    //  var_dump($game);
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -102,57 +53,56 @@ foreach ($books as $book) {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Aiste is awesome</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .bg {
+            background-image: url("https://www.gta-5.com/wp-content/uploads/2013/09/vinewood-streets-background.jpg");
+            background-size: cover;
+            min-height: 100vh;
+            max-width: 100vw;
+            position: relative;
+        }
+        .object {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position-y: bottom;
+        }
+        .car {
+            background-image: url('https://ksd-images.lt/display/aikido/store/041bde01e5cb11d6dd3edc780d7eced1.jpg');
+            width: 250px;
+        }
+        .ballas {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/Soccer_ball.svg');
+            height: 250px;
+        }
+        .girl {
+            background-image: url('https://www.urmas.net/wp-content/uploads/2016/02/6997496-beautiful-girl-fashion-look.jpg');
+            height: 250px;
+        }
+        .motorcycle {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSX4Rafo7Hd2v7FpMzqV0wsi0VP-5WgI8embA&usqp=CAU');
+            width: 200px;
+        }
+        .fire {
+            content: url("https://images.unsplash.com/photo-1543005472-1b1d37fa4eae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80");
+        }
+        .target {
+            content: url("https://upload.wikimedia.org/wikipedia/commons/c/c5/Target_Corporation_logo_%28vector%29.svg");
+        }
+    </style>
 </head>
 <body>
-<?php
-function printBooks($books, $title)
-{
-    ?>
-    <h3><?= $title?></h3>
-    <div class="grid-books">
-        <div class="grid-books__row grid-books__row--header">
-            <div class="grid-books__col">Pavadinimas</div>
-            <div class="grid-books__col">Autorius</div>
-            <div class="grid-books__col">Metai</div>
-            <div class="grid-books__col">Žanrai</div>
+<div class="bg">
+    <?php foreach ($game['objects'] as $object): ?>
+        <div class="object <?php print $object['class']; ?>"
+             style="bottom: <?php print $object['y']; ?>%; left: <?php print $object['x']; ?>%;">
         </div>
-        <?php foreach ($books as $book) : ?>
-            <div class="grid-books__row">
-                <div class="grid-books__col"><?= $book['title'] ?></div>
-                <div class="grid-books__col"><?= $book['author'] ?></div>
-                <div class="grid-books__col"><?= $book['year'] ?></div>
-                <div class="grid-books__col"><?= join(', ', $book['genres']) ?></div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-    <?php
-}
-printBooks($books, 'All Books');
-?>
+    <?php endforeach; ?>
+</div>
 </body>
 </html>
-
-<!--6. Išvesti visų visų knygų metų vidurkį; -->
-<?php
-// 6.1 - Būdas pagal formulę
-$sum = 0;
-foreach ($books as $book) {
-    $sum += $book['year'];
-}
-$yearAvg = $sum / count($books);
-?>
-<div><?= $yearAvg ?></div>
-
-<?php
-// 6.2 - Iteracinis būdas
-$yearAvg = 0;
-foreach ($books as $book) {
-    $yearAvg += $book['year'] / count($books);
-}
-?>
-<div><?= $yearAvg ?></div>
-<!--7. Išrikiuoti masyvą pagal metus; -->
-
-<!--8. Išrikiuoti masyvą pagal pavadinimus -->
