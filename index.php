@@ -4,7 +4,6 @@ $game = [
     'player' => [
         'health' => rand(1, 100),
         'armour' => rand(1, 100),
-        'weapon' => rand(1, 3),
         'wanted_level' => 0,
         'money' => 1000,
     ],
@@ -33,7 +32,31 @@ $game = [
     ],
     'hud' => [
         'money' => '',
-    ]
+    ],
+    'weapons' => [
+        [
+            'name' => 'Dildo',
+            'type' => 'melee',
+            'active' => false,
+            'damage' => 5,
+            'class' => 'dildo'
+        ],
+        [
+            'name' => 'Bat',
+            'type' => 'melee',
+            'active' => false,
+            'damage' => 10,
+            'class' => 'bat'
+        ],
+        [
+            'name' => 'Desert Eagle',
+            'type' => 'pistols',
+            'active' => false,
+            'ammo' => rand(10, 50),
+            'damage' => 55,
+            'class' => 'desert-eagle'
+        ]
+    ],
 ];
 
 foreach ($game['objects'] as $key => $object) {
@@ -57,10 +80,16 @@ foreach ($game['objects'] as $key => $object) {
     $game['player']['money'] += $object['on_fire'] ? 200 : 0;
 
     $game['player']['wanted_level'] += $object['on_fire'] ? 1 : 0;
-
-
 }
 $game['hud']['money'] = '$' . str_pad($game['player']['money'], 8, '0', STR_PAD_LEFT);
+
+$game['weapons'][rand(0, 2)]['active'] = true; // NUSTATOM RANDOM GINKLA
+
+foreach ($game['weapons'] as $weapon) {
+    if ($weapon['active']) {
+        $game['player']['weapon'] = $weapon['class'];
+    }
+}
 
 //var_dump($game);
 
@@ -172,8 +201,27 @@ $game['hud']['money'] = '$' . str_pad($game['player']['money'], 8, '0', STR_PAD_
             background-color: red;
         }
 
-        .fa-star{
+        .fa-star {
             font-size: 25px;
+        }
+
+        .dildo {
+            background: url("images/1.png");
+        }
+
+        .bat {
+            background: url("images/2.png");
+        }
+
+        .desert-eagle {
+            background: url("images/3.png");
+        }
+
+        .hud-weapon {
+            width: 90px;
+            height: 90px;
+            background-size: contain;
+            background-repeat: no-repeat;
         }
 
     </style>
@@ -187,7 +235,7 @@ $game['hud']['money'] = '$' . str_pad($game['player']['money'], 8, '0', STR_PAD_
     <?php endforeach; ?>
     <div class="card">
         <div class="top">
-            <img src="images/2.png" alt="weapon">
+            <div class="hud-weapon <?= $game['player']['weapon'] ?>"></div>
             <div>
                 <span><?php print $game['game']['time']; ?></span>
                 <div class="bar">
