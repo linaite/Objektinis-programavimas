@@ -1,6 +1,14 @@
 <?php
 
 $game = [
+    'player' => [
+        'health' => rand(1, 100),
+        'armour' => rand(1, 100),
+        'weapon' => rand(1, 3),
+        'wanted_level' => 0,
+        'money' => 1000,
+    ],
+    'game' => ['time' => date("G:i "),],
     'objects' => [
         [
             'x' => 50,
@@ -8,8 +16,8 @@ $game = [
             'class' => 'car',
         ],
         [
-            'x' => 22,
-            'y' => 4,
+            'x' => 30,
+            'y' => 10,
             'class' => 'ballas',
         ],
         [
@@ -23,16 +31,9 @@ $game = [
             'class' => 'girl',
         ],
     ],
-    'huds' => [
-        [
-            'time' => date("h:i"),
-            'bar_1' => rand(1, 100),
-            'bar_2' => rand(1, 100),
-            'weapon' => rand(1, 3),
-            'money' => 1000 + 200,
-            'stars' => 1,
-        ],
-    ],
+    'hud' => [
+        'money' => '',
+    ]
 ];
 
 foreach ($game['objects'] as $key => $object) {
@@ -40,6 +41,7 @@ foreach ($game['objects'] as $key => $object) {
 //      $y = !$x;
 
     $object['on_fire'] = rand(true, false);
+    settype($object['on_fire'], "boolean");
     $object['is_target'] = !$object['on_fire'];
 //      if ($object['on_fire']) {
 //          $object['class'] .= ' fire';
@@ -50,10 +52,18 @@ foreach ($game['objects'] as $key => $object) {
 //      }
 
     $object['class'] .= ' ' . ($object['on_fire'] ? 'fire' : 'target');
-
     $game['objects'][$key] = $object;
 
+    $game['player']['money'] += $object['on_fire'] ? 200 : 0;
+
+    $game['player']['wanted_level'] += $object['on_fire'] ? 1 : 0;
+
+
 }
+$game['hud']['money'] = '$' . str_pad($game['player']['money'], 8, '0', STR_PAD_LEFT);
+
+//var_dump($game);
+
 
 ?>
 <!doctype html>
@@ -63,6 +73,8 @@ foreach ($game['objects'] as $key => $object) {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="pricedown bl.ttf">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
     <title>Game</title>
     <style>
         body {
@@ -74,7 +86,6 @@ foreach ($game['objects'] as $key => $object) {
             background-image: url("https://www.gta-5.com/wp-content/uploads/2013/09/vinewood-streets-background.jpg");
             background-size: cover;
             min-height: 100vh;
-            max-width: 100vw;
             position: relative;
         }
 
@@ -86,67 +97,83 @@ foreach ($game['objects'] as $key => $object) {
         }
 
         .car {
-            background-image: url('https://ksd-images.lt/display/aikido/store/041bde01e5cb11d6dd3edc780d7eced1.jpg');
-            width: 250px;
+            background-image: url('images/car.png');
+            width: 400px;
+            height: 250px;
         }
 
         .ballas {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/Soccer_ball.svg');
-            height: 250px;
+            background-image: url('images/ball.png');
+            height: 100px;
+            width: 100px;
         }
 
         .girl {
-            background-image: url('https://www.urmas.net/wp-content/uploads/2016/02/6997496-beautiful-girl-fashion-look.jpg');
-            height: 250px;
+            background-image: url('images/girl.png');
+            height: 500px;
+            width: 250px;
         }
 
         .motorcycle {
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSX4Rafo7Hd2v7FpMzqV0wsi0VP-5WgI8embA&usqp=CAU');
-            width: 200px;
+            background-image: url('images/motorcycle.png');
+            width: 300px;
+            height: 250px;
         }
 
         .fire {
-            content: url("https://w0.pngwave.com/png/573/316/flame-fire-flame-fire-png-clip-art.png");
+            content: url("images/fire.png");
         }
 
         .target {
-            content: url("https://upload.wikimedia.org/wikipedia/commons/c/c5/Target_Corporation_logo_%28vector%29.svg");
+            content: url("images/target.png");
         }
 
         .card {
             position: absolute;
             background-color: white;
-            padding: 10px;
+            border: 3px solid black;
+            padding: 15px;
             top: 10px;
             left: 10px;
             width: 250px;
-            border-radius: 5px;
+            font-family: Pricedown;
+            font-size: 2.3em;
+            box-sizing: border-box;
+            border-radius: 10px;
+            text-align: center;
         }
 
-        .sec_1 img {
-            margin-right: 10px;
-            width: 50px;
-            height: 50px;
-        }
-
-        .sec_1 {
+        .top {
             display: flex;
+            margin-bottom: 10px;
+        }
+
+        .top img {
+            margin-right: 10px;
+            width: 90px;
+            height: 90px;
+        }
+
+        .top div {
             width: 100%;
         }
 
-        .progress_bar {
-            width: 100%;
+        .bar {
+            background-color: lightgray;
+            border: 2px solid black;
+            box-sizing: border-box;
         }
 
-        .bar_1 {
+        .bg_white {
             background-color: white;
-            border:2px solid black
         }
-        .main_bar{
-            background-color: grey;
-        }
-        .main2_bar{
+
+        .bg_red {
             background-color: red;
+        }
+
+        .fa-star{
+            font-size: 25px;
         }
 
     </style>
@@ -159,22 +186,24 @@ foreach ($game['objects'] as $key => $object) {
         </div>
     <?php endforeach; ?>
     <div class="card">
-        <?php foreach ($game['huds'] as $hud): ?>
-            <div class="sec_1">
-                <img src="<?php print $hud['weapon']; ?>.png" alt="weapon">
-                <div class="progress_bar">
-                    <span><?php print $hud['time']; ?></span>
-                    <div class="bar_1">
-                        <div class="main_bar" style="height:24px;width:<?php print $hud['bar_1']; ?>%"></div>
-                    </div>
+        <div class="top">
+            <img src="images/2.png" alt="weapon">
+            <div>
+                <span><?php print $game['game']['time']; ?></span>
+                <div class="bar">
+                    <div class="bg_white" style="height:20px;width:<?php print $game['player']['armour']; ?>%"></div>
                 </div>
             </div>
-            <div class="bar_1">
-                <div class="main2_bar" style="height:24px;width:<?php print $hud['bar_2']; ?>%"></div>
-            </div>
-
-
-        <?php endforeach; ?>
+        </div>
+        <div class="bar">
+            <div class="bg_red" style="height:20px;width:<?php print $game['player']['health']; ?>%"></div>
+        </div>
+        <span><?php print $game['hud']['money']; ?></span>
+        <div>
+            <?php for ($i = 1; $i <= 6; $i++) : ?>
+                <i class="<?php print  $game['player']['wanted_level'] < $i ? 'far' : 'fas'; ?>  fa-star"></i>
+            <?php endfor; ?>
+        </div>
     </div>
 </div>
 </body>
