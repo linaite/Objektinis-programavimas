@@ -244,7 +244,7 @@ foreach ($game['weapons'] as $weapon) {
             </div>
         </div>
         <div class="bar">
-            <div class="bg_red" style="height:20px;width:<?php print $game['player']['health']; ?>%"></div>
+            <div class="bg_red" style="height:21px;width:<?php print $game['player']['health']; ?>%"></div>
         </div>
         <span><?php print $game['hud']['money']; ?></span>
         <div>
