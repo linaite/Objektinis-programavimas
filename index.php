@@ -1,36 +1,36 @@
 <?php
-/**
- * Squares the number
- * @param int $x number
- * @return int squared number
- */
-function square(int $x) : int
-{
-    return $x ** 2;
-}
 var_dump($_POST);
 
-if (isset($_POST['nr']) && is_numeric($_POST['nr'])) {
-    $atsakymas = 'Atsakymas: ' . square($_POST['nr']);
-} else {
-    $atsakymas = 'Įrašykite skaičių';
-}
+$size = intval($_POST['size'] ?? 25);
+$message = empty($_POST) ? 'Paspausk mygtuką' : $size;
+
 ?>
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
-​
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-​
+<style>
+    .boobs {
+        background-image: url("https://cdn.pixabay.com/photo/2017/09/05/18/31/boobs-2718689_640.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: <?php print $size; ?>px;
+        height: <?php print $size; ?>px;
+        margin: 150px 0 0 150px;
+    }
+</style>
 <body>
-<form method="POST">
-    Ką pakelti kvadratu: <input name="nr" type="number">
-    <button name="submit">Submit</button>
+<form method="post">
+    <input type="range" min="1" max="100" value="50" name="size">
+    <button>Let's do it!</button>
 </form>
-<h2><?= $atsakymas; ?></h2>
+<p><?= $message; ?></p>
+<div class="boobs"></div>
 </body>
-​
 </html>
