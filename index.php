@@ -22,7 +22,7 @@ $message = empty($_POST) ? 'Paspausk mygtuką' : $size;
         background-repeat: no-repeat;
         width: <?php print $size; ?>px;
         height: <?php print $size; ?>px;
-        margin: 150px 0 0 150px;
+        margin: 160px 0 0 160px;
     }
 </style>
 <body>
