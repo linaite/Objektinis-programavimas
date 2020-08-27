@@ -1,13 +1,56 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<h1>TEST3</h1>
-</body>
-</html>
+<?php
+/**
+ * Generates tag attributes
+ *
+ * @param array $attrs
+ * @return string
+ */
+function html_attr(array $attrs): string
+{
+    $attributes = [];
+
+    foreach ($attrs as $key => $attr) {
+        $attributes[] = "$key=\"$attr\"";
+    }
+
+    return implode(' ', $attributes);
+}
+
+
+/**
+ * Generating new input field from given array
+ *
+ * @param string $field_id
+ * @param array $field
+ * @return string
+ */
+function input_attr(string $field_id, array $field): string
+{
+    $attributes = [
+        'name' => $field_id,
+        'type' => $field['type'],
+        'value' => $field['value'] ?? ''
+    ];
+    $attributes += $field['extra']['attr'] ?? [];
+
+    return html_attr($attributes);
+}
+
+
+/**
+ * Generating button from given array
+ *
+ * @param string $button_id
+ * @param array $button
+ * @return string
+ */
+function button_attr(string $button_id, array $button): string
+{
+    $attributes = [
+        'name' => $button_id,
+        'value' => $button['value'] ?? ''
+    ];
+    $attributes += $button['extra']['attr'] ??[];
+
+    return button_attr($attributes);
+}
