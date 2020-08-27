@@ -87,7 +87,7 @@ if (isset($_POST['register'])) {
     <button type="submit">Registruotis</button>
     <input type="hidden" name="register" value="1">
 </form>
-<!-- Jeigu buvo pa'submit'inta registracijos forma -->
+<!-- Jeigu buvo pasubmit'inta registracijos forma -->
 <?php if (isset($_POST['register'])) : ?>
     <?php if ($passwordsAreEqual) : ?>
         <h3 class="text--success">Registracija sėkminga</h3>
