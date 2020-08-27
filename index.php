@@ -1,11 +1,13 @@
 <?php
 var_dump($_POST);
-if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['age']) && isset($_POST['field']) && isset($_POST['gun'])) {
-    $name = 'Vardas: ' . $_POST['name'];
-    $surname = 'Pavardė: ' . $_POST['surname'];
-    $age = 'Amžius: ' . $_POST['age'];
-    $field = 'Sritis: ' . $_POST['field'];
-    $gun = 'Mėgstamiausias ginklas: ' . $_POST['gun'];
+
+if (isset($_POST['submit'])) {
+    $certificate = [
+        'name' => $_POST['name'],
+        'surname' => $_POST['surname'],
+        'age' => $_POST['age'],
+        'field' => $_POST['field'],
+    ];
 }
 
 ?>
@@ -22,7 +24,7 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['age']) &&
     <title>Document</title>
 </head>
 <body>
-<?php if (empty($_POST)) : ?>
+<?php if (!isset($_POST['submit'])) : ?>
     <form method="post">
         <h2 class="form__title">Priėmimo į Baltarusijos mentus anketa</h2>
         <div class="input-group">
@@ -65,30 +67,20 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['age']) &&
             <input type="checkbox" name="checkArr[]" value="Tu labai protingas!">
             <label for="question1">Ar tu durnas?</label><br><br>
         </div>
-        <button>Registruotis</button>
+        <button type="submit" name="submit">Registruokis</button>
     </form>
-<?php else: ?>
+<?php endif; ?>
+<?php if (isset($certificate)) : ?>
     <div class="certificate">
         <div class="top">
             <h1>Sertifikatas</h1>
             <img src="https://cdn.countryflags.com/thumbs/belarus/flag-heart-3d-250.png" alt="flag">
         </div>
         <ul>
-            <?php if (isset($name)) : ?>
-                <li><?php print $name; ?> </li>
-            <?php endif; ?>
-            <?php if (isset($surname)) : ?>
-                <li><?php print $surname; ?> </li>
-            <?php endif; ?>
-            <?php if (isset($age)) : ?>
-                <li><?php print $age; ?> </li>
-            <?php endif; ?>
-            <?php if (isset($field)) : ?>
-                <li><?php print $field; ?> </li>
-            <?php endif; ?>
-            <?php if (isset($gun)) : ?>
-                <li><?php print $gun; ?> </li>
-            <?php endif; ?>
+            <li>Vardas: <?php print $certificate['name'] ?></li>
+            <li>Pavarde: <?php print $certificate['surname'] ?></li>
+            <li>Amzius: <?php print $certificate['age'] ?></li>
+            <li>Sritis: <?php print $certificate['field'] ?></li>
             <?php if (isset ($_POST['checkArr'])): ?>
                 <?php if (!empty($_POST['checkArr'])) : ?>
                     <?php foreach ($_POST['checkArr'] as $checked) : ?>
