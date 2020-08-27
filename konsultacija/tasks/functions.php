@@ -29,6 +29,7 @@ printNumbers($numbers);
 printRow($numbers);
 ?>
 <hr/>
+
 <!--2. Sukurti funkciją, kuri ima masyvą ir grąžina visų jo elementų sumą -->
 <?php function arrSum($array)
 {
