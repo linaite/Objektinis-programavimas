@@ -176,41 +176,128 @@ function printCarsTable($carArr, $title)
 printCarsTable($cars, 'Visos mašinos');
 ?>
 <hr/>
-<!--
-    9. Sukurti funkciją kuri atrenka visas tik tam tikros markės mašinas.
-  Atvaizduoti mašinas lentele panaudojant funkciją, sukurtą 8 punkte.
- -->
-<?php function carsByBrand($cars, $brand)
+
+<!--9. Sukurti funkciją kuri atrenka visas tik tam tikros markės mašinas.
+Atvaizduoti mašinas lentele panaudojant funkciją, sukurtą 8 punkte.
+-->
+<?php
+function filterCarsByBrand($cars, $brand)
 {
-    $filteredCar = [];
+    $carsByBrand = [];
     foreach ($cars as $car) {
-        if ($car['brand'] === $brand) {
-            $filteredCar[] = $car;
-        }
+        if ($car['brand'] === $brand)
+            $carsByBrand[] = $car;
     }
-    return $filteredCar;
+    return $carsByBrand;
 }
 
-$carsBMW = carsByBrand($cars, 'BMW');
-printCarsTable($carsBMW, 'BMW masinos');
-
-
+$carsAudi = filterCarsByBrand($cars, 'Audi');
+$carsBMW = filterCarsByBrand($cars, 'BMW');
 ?>
-
-
+<?php printCarsTable($carsAudi, 'Audi') ?>
 <!--
     10. Sukurti funkciją kuri atrenka mašinas brangesnes, nei parametru paduodama reikšmė.
   Atvaizduoti mašinas lentele panaudojant funkciją, sukurtą 8 punkte.
  -->
+<?php
+function filterCarsPriceFrom($cars, $price)
+{
+    $filteredCars = [];
+    foreach ($cars as $car) {
+        if ($car['price'] >= $price)
+            $filteredCars[] = $car;
+    }
+    return $filteredCars;
+}
+
+$carsFromPrice2000 = filterCarsPriceFrom($cars, 20000);
+
+printCarsTable($carsFromPrice2000, 'Brangesnės nei 20000 eur') ?>
+
 <!--
     11. Sukurti funkciją kuri atrenka mašinas pigesnes, nei parametru paduodama reikšmė.
   Atvaizduoti mašinas lentele panaudojant funkciją, sukurtą 8 punkte.
  -->
+<?php
+function filterCarsPriceUpTo($cars, $price)
+{
+    $filteredCars = [];
+    foreach ($cars as $car) {
+        if ($car['price'] <= $price)
+            $filteredCars[] = $car;
+    }
+    return $filteredCars;
+}
+
+$priceUpTo2000 = filterCarsPriceUpTo($cars, 20000);
+
+printCarsTable($priceUpTo2000, 'Pigesnesnės nei 20000 eur') ?>
 <!--
     12. Sukurti funkciją kuri išrikiuoja mašinas pagal kainą.
   Atvaizduoti mašinas lentele panaudojant funkciją, sukurtą 8 punkte.
  -->
+<?php
+
+function byPrice($current, $next)
+{
+    return $current['price'] - $next['price'];
+}
+
+function sortByPrice($cars)
+{
+    usort($cars, 'byPrice');
+    return $cars;
+}
+
+$carsSortedByPrice = sortByPrice($cars);
+
+printCarsTable($carsSortedByPrice, 'Išrikiuota pagal kainą') ?>
+
 <!--
     13. Sukurti funkciją kuri išrikiuoja mašinas pagal parametru paduotą funkciją.
   Atvaizduoti mašinas lentele panaudojant funkciją, sukurtą 8 punkte.
  -->
+<?php
+function byYearASC($current, $next)
+{
+    return $current['year'] - $next['year'];
+}
+
+function byYearDESC($current, $next)
+{
+    return $next['year'] - $current['year'];
+}
+
+function sortCars($cars, $cmpFunction)
+{
+    usort($cars, $cmpFunction);
+    return $cars;
+}
+
+$carsSortedByYearASC = sortCars($cars, 'byYearASC');
+$carsSortedByYearDESC = sortCars($cars, 'byYearDESC');
+
+printCarsTable($carsSortedByYearASC, 'Išrikiuota pagal metus didėjimo tvarka');
+printCarsTable($carsSortedByYearDESC, 'Išrikiuota pagal metus mažėjimo tvarka')
+?>
+
+<!-- 14. Atrinkti BMW automobilius brangesnius nei 30 000 ir iškikiuokite pagal kainą mažėjančia tvarka-->
+
+
+<!--15. Atrinkti Toyota automobilius pigesnius nei 10 000 ir iškikiuokite pagal markę tvarka-->
+
+<!--16. Atrinkti Audi automobilius naujesnius nei 2010 metai, rėžiuose [10000; 50000], išrikiuoti pagal metus didėjančia tvarka-->
+
+<!--17. Parašyti funkciją kuri palygina du mašinų masyvus, pagal suminę mašinų kainą
+      grąžinti true - jei pirmojo masyvo kainų suma didenė už antrojo,
+      grąžinti false - mei antrojo masyvo kainų suma NEdidenė už antrojo
+      Atspausdinti ekrane "Pirmojo masyvo mašinų kainų suma yra didesnė"
+        arba  "Antrojo masyvo mašinų kainų suma NĖRA didesnė"
+ -->
+
+<!--18. Parašyti funkciją kuri palygina du mašinų masyvus, pagal vidutinę mašinų kainą
+      grąžinti true - jei pirmojo masyvo kainų vidurkis didesnis už antrojo,
+      grąžinti false - jei masyvo kainų vidurkis NĖRA didenis už antrojo
+      Atspausdinti ekrane "Pirmojo masyvo mašinų kainų vidurkis yra didesnis"
+        arba "Pirmojo masyvo mašinų kainų vidurkis NĖRA didesnis"
+-->
