@@ -54,23 +54,94 @@ function validate_field_has_space($field_value, &$field)
     }
 }
 
-function validate_field_is_num_from100to200($field_value, &$field)
+//function validate_field_is_num_from100to200($field_value, &$field)
+//{
+//    if ($field_value < 100 || $field_value > 200) {
+//        $field['error'] = 'Skaičius neatitinka sąlygos';
+//    } else {
+//        return true;
+//    }
+//}
+
+/**
+ * validate if number is in range
+ *
+ * @param string $field_value
+ * @param array $field
+ * @param array $params
+ * @return bool or null
+ */
+function validate_field_range(string $field_value, array &$field, array $params): ?bool
 {
-    if ($field_value < 100 || $field_value > 200) {
-        $field['error'] = 'Skaičius neatitinka sąlygos';
+    if (($field_value < $params['min']) || ($field_value > $params['max'])) {
+        $field['error'] = strtr('Laukelio vertė turi būti @from iki @to', [
+            '@from' => $params['min'],
+            '@to' => $params['max']
+        ]);
+        return false;
     } else {
         return true;
     }
 }
 
-function validate_field_is_num_from50to100($field_value, &$field)
+/**
+ * validates matching fields
+ *
+ * @param string $field_value
+ * @param array $form
+ * @param array $params
+ * @return bool
+ */
+
+//function validate_fields_match(array $form_values, array &$form, array $params)
+//{
+//        var_dump(['form_values' => $form_values, 'params' => $params]);
+//}
+
+function validate_fields_match(array $form_values, array &$form, array $params): bool
 {
-    if ($field_value < 50 || $field_value > 100) {
-        $field['error'] = 'Skaičius neatitinka sąlygos';
-    } else {
-        return true;
+//    var_dump(['form_values' => $form_values, 'params' => $params]);
+    $reference_value = $form_values[$params[0]];
+    foreach ($params as $param) {
+        $field_value = $form_values[$param];
+        if ($field_value != $reference_value) {
+            $form['error'] = 'Slaptažodžiai turi sutapti!';
+            return false;
+        }
     }
+    return true;
 }
+
+/**
+ * Validates login
+ *
+ * @param array $form_values
+ * @param array $form
+ * @return bool
+ */
+function validate_login(array $form_values, array &$form): bool
+{
+
+    $users = file_to_array(DB_FILE) ?: [];
+    var_dump($users);
+    var_dump(['form_values' => $form_values]);
+    foreach ($users as $user) {
+        if ($form_values['username'] === $user['username'] && $form_values['password'] === $user['password']) {
+
+            $_SESSION['username'] = $form_values['username'];
+            $_SESSION['password'] = $form_values['password'];
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
+
+
+
 
 
 

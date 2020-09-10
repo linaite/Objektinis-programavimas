@@ -68,36 +68,72 @@ function sanitize_form_input_values(array $form): ?array
 
 ?>
 <?php
+
 /**
- * generates error messages
+ * Validates form
  *
  * @param array $form
  * @param array $form_values
  * @return bool
  */
-// pasako true ar false - jei forma uzpildyta teisingai
-function validate_form(&$form, $form_values)
+function validate_form(array &$form, array $form_values): bool
 {
     $success = true;
-    foreach ($form['fields'] as $field_key => &$field) {
-        $field_value = $form_values[$field_key];
-//        var_dump($field_value);
-        foreach ($field['validators'] as $validator) {
-//            var_dump($field['validators']);
-//            var_dump($validator);
-            if (is_callable($validator)) {
-                if ($validator($field_value, $field)) {
-                    $field['value'] = $field_value;
-                } else {
-                    $success = false;
-                    break;
-                }
+    foreach ($form['fields'] as $key => &$field) {
+        // go through validators array
+
+        foreach ($field['validators'] as $validator_key => $validator) {
+            //check if validator is array
+            if (is_array($validator)) {
+                $function = $validator_key;
+                $params = $validator;
             } else {
-                throw new Exception('Tokio validatoriaus nera' . $validator);
+                $function = $validator;
+            }
+
+            if ($function($form_values[$key], $field, $params ?? null)) {
+                $field['value'] = $form_values[$key];
+            } else {
+                $success = false;
+                break;
             }
         }
     }
+
+    foreach ($form['validators'] ?? [] as $validator_key => $validator) {
+        if (is_array($validator)) {
+            $function = $validator_key;
+            $params = $validator;
+        } else {
+            $function = $validator;
+        }
+
+        if (!$function($form_values, $form, $params ?? null)) {
+            $success = false;
+            break;
+        }
+    }
     return $success;
+}
+
+/**
+ * is logged in
+ *
+ * @param array $form_values
+ * @param array $form
+ * return bool
+ */
+function is_logged_in(array &$users): bool
+{
+    $users = file_to_array(DB_FILE) ?: [];
+    if (!empty($users)) {
+        foreach ($users as $user) {
+            if ($_SESSION['username'] === $user['username'] && $_SESSION['username'] === $user['username']) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 

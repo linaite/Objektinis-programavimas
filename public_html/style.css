@@ -1,0 +1,52 @@
+form {
+    width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+
+label, input, select {
+    display: block;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+label>span:first-child{
+    color:white;
+    font-weight: 400;
+}
+
+input, select {
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    color: grey;
+}
+input{
+    margin-bottom: 5px;
+}
+
+select, button{
+    color:grey;
+}
+
+button{
+    padding: 10px 30px;
+    margin:10px auto;
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    border: none;
+}
+
+label>span:last-child, .error{
+    color:red;
+    font-size: 14px;
+}
