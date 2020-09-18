@@ -1,0 +1,14 @@
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #fdfdfd;
+    /* Tik testuojant */
+    margin: 0 50px;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+hr {
+    margin: 0.35rem 0;
+}

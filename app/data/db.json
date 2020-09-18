@@ -1,0 +1,86 @@
+{
+  "users": [
+    {
+      "username": "linaite",
+      "password": "111"
+    },
+    {
+      "username": "snapas",
+      "password": "111"
+    },
+    {
+      "username": "krapas",
+      "password": "333"
+    },
+    {
+      "username": "bebras",
+      "password": "555"
+    },
+    {
+      "username": "katinas",
+      "password": "9999"
+    }
+  ],
+  "pixels": [
+    {
+      "username": "linaite",
+      "x": "234",
+      "y": "432",
+      "color": "blue"
+    },
+    {
+      "username": "linaite",
+      "x": "12",
+      "y": "451",
+      "color": "black"
+    },
+    {
+      "username": "snapas",
+      "x": "432",
+      "y": "165",
+      "color": "red"
+    },
+    {
+      "username": "krapas",
+      "x": "346",
+      "y": "12",
+      "color": "green"
+    },
+    {
+      "username": "krapas",
+      "x": "148",
+      "y": "354",
+      "color": "black"
+    },
+    {
+      "username": "bebras",
+      "x": "450",
+      "y": "120",
+      "color": "blue"
+    },
+    {
+      "username": "bebras",
+      "x": "420",
+      "y": "120",
+      "color": "red"
+    },
+    {
+      "username": "bebras",
+      "x": "456",
+      "y": "321",
+      "color": "blue"
+    },
+    {
+      "username": "bebras",
+      "x": "111",
+      "y": "222",
+      "color": "green"
+    },
+    {
+      "username": "katinas",
+      "x": "150",
+      "y": "150",
+      "color": "green"
+    }
+  ]
+}

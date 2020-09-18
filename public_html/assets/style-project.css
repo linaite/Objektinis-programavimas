@@ -1,0 +1,21 @@
+body{
+    margin:0;
+    font-family: 'Roboto', sans-serif;
+}
+
+header{
+    background-color: black;
+    padding: 15px;
+}
+
+.navbar a{
+    font-size: 1.2em;
+    color: white;
+    margin-right: 30px;
+    text-decoration: none;
+}
+
+.navbar a:hover{
+    color:red;
+}
+

@@ -116,24 +116,6 @@ function validate_form(array &$form, array $form_values): bool
     return $success;
 }
 
-/**
- * is logged in
- *
- * @param array $form_values
- * @param array $form
- * return bool
- */
-function is_logged_in(array &$users): bool
-{
-    $users = file_to_array(DB_FILE) ?: [];
-    if (!empty($users)) {
-        foreach ($users as $user) {
-            if ($_SESSION['username'] === $user['username'] && $_SESSION['username'] === $user['username']) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
+
 
 

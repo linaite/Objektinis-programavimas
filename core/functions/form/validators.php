@@ -112,29 +112,30 @@ function validate_fields_match(array $form_values, array &$form, array $params):
     return true;
 }
 
+
 /**
- * Validates login
+ * Validate colors
  *
- * @param array $form_values
- * @param array $form
+ * @param string $field_value
+ * @param array $field
  * @return bool
  */
-function validate_login(array $form_values, array &$form): bool
+function validate_field_select(string $field_value, array &$field): bool
 {
-
-    $users = file_to_array(DB_FILE) ?: [];
-    var_dump($users);
-    var_dump(['form_values' => $form_values]);
-    foreach ($users as $user) {
-        if ($form_values['username'] === $user['username'] && $form_values['password'] === $user['password']) {
-
-            $_SESSION['username'] = $form_values['username'];
-            $_SESSION['password'] = $form_values['password'];
+    foreach ($field['options'] as $key => $value) {
+        if ($field_value === $key) {
             return true;
         }
     }
+    $field['error'] = 'Rinktis negalima';
     return false;
 }
+
+
+
+
+
+
 
 
 
